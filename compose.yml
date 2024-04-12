@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16.2
+    restart: always
+    environment:
+      PHOTO_APP_DATABASE_USERNAME: postgres
+      PHOTO_APP_DATABASE_PASSWORD: password
+      PHOTO_APP_DATABASE_NAME: photo_app_development
+    volumes:
+      - ./tmp/db/data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: ./bin/rails s -b '0.0.0.0'
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      PHOTO_APP_DATABASE_USERNAME: postgres
+      PHOTO_APP_DATABASE_PASSWORD: password
+      PHOTO_APP_DATABASE_HOST: db
+      RAILS_ENV: development
+    volumes:
+      - .:/rails
