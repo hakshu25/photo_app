@@ -1,0 +1,23 @@
+<h1 class="text-3xl font-bold leading-7 text-gray-900 mb-6">写真アップロード</h1>
+<% if @photo.errors.any? %>
+  <div>
+    <ul>
+      <% @photo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with(url: "photos/create", local: true, class: "shadow-md border rounded px-8 pt-6 pb-8 mb-4") do |form| %>
+  <div class="mb-4">
+    <%= form.label :title, "タイトル", class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_field :title, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" %>
+  </div>
+  <div class="mb-6">
+    <%= form.label :image, "画像ファイル", class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.file_field :image, accept: "image/*", class: "py-2 w-full text-gray-700 focus:outline-none focus:shadow-outline" %>
+  </div>
+  <div class="flex items-center justify-between">
+    <%= form.submit "アップロード", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer" %>
+  </div>
+<% end %>
