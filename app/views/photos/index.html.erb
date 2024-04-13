@@ -5,11 +5,11 @@
 <% if @photos.empty? %>
   <p class="text-center text-md mt-24">まだ写真がありません。アップロードしてみましょう。</p>
 <% else %>
-  <div class="grid lg:grid-cols-8 md:grid-cols-6 sm:grid-cols-4 gap-6">
+  <div class="grid md:grid-cols-5 sm:grid-cols-3 gap-6">
     <% @photos.each do |photo| %>
       <div>
-        <img class="w-64 h-48 border" src="<%= url_for(photo.image) %>" alt="<%= photo.title %>">
-        <p class="text-xl text-center"><%= photo.title %></p>
+        <img class="w-72 h-48 border object-contain" src="<%= url_for(photo.image) %>" alt="<%= photo.title %>">
+        <p class="text-md text-center"><%= photo.title %></p>
       </div>
     <% end %>
   </div>
