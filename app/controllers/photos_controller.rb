@@ -10,7 +10,7 @@ class PhotosController < ApplicationController
     @photo = @user.photographs.build(photo_params)
 
     if @photo.save
-      redirect_to new_photo_path(user_id: params[:user_id])
+      redirect_to root_path(user_id: params[:user_id])
     else
       render :new
     end
