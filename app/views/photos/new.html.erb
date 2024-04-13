@@ -17,7 +17,8 @@
     <%= form.label :image, "画像ファイル", class: "block text-gray-700 text-sm font-bold mb-2" %>
     <%= form.file_field :image, accept: "image/*", class: "py-2 w-full text-gray-700 focus:outline-none focus:shadow-outline" %>
   </div>
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-start gap-x-4">
     <%= form.submit "アップロード", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer" %>
+    <%= link_to 'キャンセル', root_path(user_id: @user.id), class: "inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" %>
   </div>
 <% end %>
