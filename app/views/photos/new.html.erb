@@ -1,14 +1,14 @@
 <h1 class="text-3xl font-bold leading-7 text-gray-900 mb-6">写真アップロード</h1>
 <% if @photo.errors.any? %>
-  <div>
-    <ul>
+  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+    <ul class="list-inside list-disc">
       <% @photo.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
   </div>
 <% end %>
-<%= form_with(url: "photos/create", local: true, class: "shadow-md border rounded px-8 pt-6 pb-8 mb-4") do |form| %>
+<%= form_with(model: @photo, url: "/photos?user_id=#{@user.id}", local: true, class: "shadow-md border rounded px-8 pt-6 pb-8 mb-4") do |form| %>
   <div class="mb-4">
     <%= form.label :title, "タイトル", class: "block text-gray-700 text-sm font-bold mb-2" %>
     <%= form.text_field :title, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" %>
