@@ -1,6 +1,6 @@
 <h1 class="text-3xl font-bold leading-7 text-gray-900 mb-6">写真アップロード</h1>
 <% if @photo.errors.any? %>
-  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
     <ul class="list-inside list-disc">
       <% @photo.errors.full_messages.each do |message| %>
         <li><%= message %></li>
