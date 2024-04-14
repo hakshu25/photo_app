@@ -9,6 +9,8 @@ services:
       PHOTO_APP_DATABASE_USERNAME: postgres
       PHOTO_APP_DATABASE_PASSWORD: password
       PHOTO_APP_DATABASE_NAME: photo_app_development
+      TZ: Asia/Tokyo
+      LANG: ja_JP.UTF-8
     volumes:
       - ./tmp/db/data:/var/lib/postgresql/data
 
@@ -24,6 +26,8 @@ services:
       PHOTO_APP_DATABASE_PASSWORD: password
       PHOTO_APP_DATABASE_HOST: db
       RAILS_ENV: development
+      TZ: Asia/Tokyo
+      LANG: ja_JP.UTF-8
     tty: true
     volumes:
       - .:/rails
