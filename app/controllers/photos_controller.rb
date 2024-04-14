@@ -1,24 +1,22 @@
 class PhotosController < ApplicationController
+  before_action :require_login
+
   def new
-    # TODO: ログイン機能を作成したら、ログインしているユーザーに紐づけて写真を投稿できるようにする
-    @user = User.find(params[:user_id])
-    @photo = @user.photographs.build
+    @photo = current_user.photographs.build
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @photo = @user.photographs.build(photo_params)
+    @photo = current_user.photographs.build(photo_params)
 
     if @photo.save
-      redirect_to root_path(user_id: params[:user_id])
+      redirect_to root_path
     else
       render :new
     end
   end
 
   def index
-    @user = User.find(params[:user_id])
-    @photos = @user.photographs
+    @photos = current_user.photographs
   end
 
   private
