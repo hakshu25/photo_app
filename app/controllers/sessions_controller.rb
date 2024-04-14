@@ -22,6 +22,12 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    session.delete(:user_id)
+    reset_current_user
+    redirect_to login_path
+  end
+
   private
 
   def session_params
