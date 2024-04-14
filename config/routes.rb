@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   root "photos#index"
 
   resources :photos, only: [:new, :create, :index]
+  get "login" => "sessions#new"
+  post "login" => "sessions#create"
 end
