@@ -16,7 +16,7 @@ class PhotosController < ApplicationController
   end
 
   def index
-    @photos = current_user.photographs
+    @photos = current_user.photographs.sort_latest_order
   end
 
   private
