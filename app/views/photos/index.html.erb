@@ -1,6 +1,6 @@
 <h1 class="text-3xl font-bold leading-7 text-gray-900 mb-6">写真一覧</h1>
 <nav class="mb-6">
-  <%= link_to '写真をアップロードする', new_photo_path(user_id: @user.id), class: "text-blue-600 hover:underline cursor-pointer" %>
+  <%= link_to '写真をアップロードする', new_photo_path, class: "text-blue-600 hover:underline cursor-pointer" %>
 </nav>
 <% if @photos.empty? %>
   <p class="text-center text-md mt-24">まだ写真がありません。アップロードしてみましょう。</p>
