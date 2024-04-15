@@ -21,9 +21,9 @@ services:
       - 3000:3000
     depends_on:
       - db
+    env_file:
+      - .env.development
     environment:
-      PHOTO_APP_DATABASE_USERNAME: postgres
-      PHOTO_APP_DATABASE_PASSWORD: password
       PHOTO_APP_DATABASE_HOST: db
       RAILS_ENV: development
       TZ: Asia/Tokyo
