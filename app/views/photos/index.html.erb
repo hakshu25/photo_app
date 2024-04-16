@@ -1,16 +1,37 @@
 <%= render 'shared/header' %>
 <h1 class="text-3xl font-bold leading-7 text-gray-900 mb-6">写真一覧</h1>
-<nav class="mb-6">
-  <%= link_to '写真をアップロードする', new_photo_path, class: "text-blue-600 hover:underline cursor-pointer" %>
+<nav class="mb-2">
+  <% if authorized? %>
+    <p>MyTweet Appと連携中</p>
+  <% else %>
+    <div>
+      <%= link_to 'MyTweet Appと連携する', oauth_authorize_path, class: "text-blue-600 hover:underline cursor-pointer" %>
+    </div>
+  <% end %>
+  <div>
+    <%= link_to '写真をアップロードする', new_photo_path, class: "text-blue-600 hover:underline cursor-pointer" %>
+  </div>
 </nav>
+<% if flash %>
+  <% flash.each do |type, message| %>
+    <div class="<%= flash_class(type) %> px-4 py-3 rounded mb-2"><%= message %></div>
+  <% end %>
+<% end %>
 <% if @photos.empty? %>
   <p class="text-center text-md mt-24">まだ写真がありません。アップロードしてみましょう。</p>
 <% else %>
   <div class="grid md:grid-cols-5 sm:grid-cols-3 gap-6">
     <% @photos.each do |photo| %>
       <div>
-        <img class="w-72 h-48 border object-contain" src="<%= url_for(photo.image) %>" alt="<%= photo.title %>">
-        <p class="text-md text-center"><%= photo.title %></p>
+        <p class="text-sm align-bottom h-16 flex items-end justify-center"><%= photo.title %></p>
+        <img class="w-72 h-48 border object-contain" src="<%= image_url(photo.image) %>" alt="<%= photo.title %>">
+        <% if authorized? %>
+          <%= form_with(url: oauth_tweet_path, local: true, class: "mt-2 text-center") do |form| %>
+            <%= form.hidden_field :title, value: photo.title %>
+            <%= form.hidden_field :url, value: image_url(photo.image) %>
+            <%= form.submit "ツイートする", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold text-xs py-1 px-2 rounded cursor-pointer" %>
+          <% end %>
+        <% end %>
       </div>
     <% end %>
   </div>

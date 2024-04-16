@@ -1,5 +1,6 @@
 class PhotosController < ApplicationController
   before_action :require_login
+  helper_method :image_url
 
   def new
     @photo = current_user.photographs.build
@@ -17,6 +18,10 @@ class PhotosController < ApplicationController
 
   def index
     @photos = current_user.photographs.sort_latest_order
+  end
+
+  def image_url(image)
+    url_for(image)
   end
 
   private
