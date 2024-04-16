@@ -17,7 +17,7 @@ class PhotosController < ApplicationController
   end
 
   def index
-    @photos = current_user.photographs.sort_latest_order
+    @photos = current_user.photographs.with_attached_image.sort_latest_order
   end
 
   def image_url(image)
