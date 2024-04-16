@@ -12,13 +12,24 @@ class OauthController < ApplicationController
     end
 
     access_token = OauthGatewayService.create_access_token(auth_code)
-    session[:access_token] = access_token if access_token
+    if access_token
+      session[:access_token] = access_token
+      flash[:success] = '連携に成功しました。'
+    else
+      flash[:alert] = '連携に失敗しました。時間をおいて再度お試しください。'
+    end
 
     redirect_to root_path
   end
 
   def tweet
-    OauthGatewayService.tweet(session[:access_token], tweet_params)
+    result = OauthGatewayService.tweet(session[:access_token], tweet_params)
+    if result
+      flash[:success] = 'ツイート成功しました。'
+    else
+      flash[:alert] = 'ツイートに失敗しました。時間をおいて再度お試しください。'
+    end
+
     redirect_to root_path
   end
 

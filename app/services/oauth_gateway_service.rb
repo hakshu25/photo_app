@@ -22,15 +22,20 @@ class OauthGatewayService
         grant_type: "authorization_code"
       )
 
-      response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
-        http.request(request)
-      end
-      Rails.logger.debug(response)
+      begin
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
+          http.request(request)
+        end
+        Rails.logger.debug(response)
 
-      case response
-      when Net::HTTPSuccess
-        JSON.parse(response.body)['access_token']
-      else
+        case response
+        when Net::HTTPSuccess
+          JSON.parse(response.body)['access_token']
+        else
+          nil
+        end
+      rescue => e
+        Rails.logger.error(e)
         nil
       end
     end
@@ -40,15 +45,20 @@ class OauthGatewayService
       request = Net::HTTP::Post.new(uri, 'Authorization' => "Bearer #{access_token}", 'Content-Type' => 'application/json')
       request.body = { text: tweet_params[:title], url: tweet_params[:url] }.to_json
 
-      response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
-        http.request(request)
-      end
-      Rails.logger.debug(response)
+      begin
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
+          http.request(request)
+        end
+        Rails.logger.debug(response)
 
-      case response
-      when Net::HTTPSuccess
-        true
-      else
+        case response
+        when Net::HTTPSuccess
+          true
+        else
+          false
+        end
+      rescue => e
+        Rails.logger.error(e)
         false
       end
     end

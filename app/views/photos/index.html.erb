@@ -1,6 +1,6 @@
 <%= render 'shared/header' %>
 <h1 class="text-3xl font-bold leading-7 text-gray-900 mb-6">写真一覧</h1>
-<nav class="mb-6">
+<nav class="mb-2">
   <% if authorized? %>
     <p>MyTweet Appと連携中</p>
   <% else %>
@@ -12,6 +12,11 @@
     <%= link_to '写真をアップロードする', new_photo_path, class: "text-blue-600 hover:underline cursor-pointer" %>
   </div>
 </nav>
+<% if flash %>
+  <% flash.each do |type, message| %>
+    <div class="<%= flash_class(type) %> px-4 py-3 rounded mb-2"><%= message %></div>
+  <% end %>
+<% end %>
 <% if @photos.empty? %>
   <p class="text-center text-md mt-24">まだ写真がありません。アップロードしてみましょう。</p>
 <% else %>
