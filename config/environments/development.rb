@@ -61,4 +61,6 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.active_storage.service = :local
+  config.active_storage.resolve_model_to_route = :rails_storage_proxy
+  config.active_storage.routes_prefix = "/images"
 end
