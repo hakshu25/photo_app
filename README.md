@@ -1,24 +1,42 @@
-# README
+# photo_app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+アップロードした写真を一覧で確認できるアプリケーションです。
 
-Things you may want to cover:
+## 環境構築
 
-* Ruby version
+環境構築に Docker を使用するため PC 上に無い場合は適宜インストールしてください。
 
-* System dependencies
+1. 環境変数の設定
 
-* Configuration
+アプリケーションで環境変数を読み込むため、以下のコマンドを実行し、環境変数ファイルを作成してください。
 
-* Database creation
+```sh
+cp env.development.template .env.development
+```
 
-* Database initialization
+作成後、以下の環境変数をご自身の OAuth アプリ情報を基に変更してください。
 
-* How to run the test suite
+```
+OAUTH_CLIENT_ID=your_oauth_client_id
+OAUTH_CLIENT_SECRET=your_oauth_client_secret
+OAUTH_HOST=http://localhost:3001
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+2. アプリケーションを起動する
 
-* Deployment instructions
+```sh
+docker compose up -d
+```
 
-* ...
+コンテナが立ち上がったらブラウザで http://localhost:3000 にアクセスします。
+ログイン画面が表示されれば正常に動作しています。
+
+### 動作確認方法
+
+[seed データ](./db/seeds.rb)でユーザー情報を DB に登録しているため、seed の情報を基にログインし、写真のアップロードやアップロードした写真の確認ができます。
+
+なお、Rails Console などを使って確認する場合は以下のように `docker compose run` で web コンテナに対して適宜実行してください。
+
+```sh
+docker compose run --rm web bin/rails c
+```
