@@ -34,3 +34,9 @@ docker compose up -d
 ### 動作確認方法
 
 [seed データ](./db/seeds.rb)でユーザー情報を DB に登録しているため、seed の情報を基にログインし、写真のアップロードやアップロードした写真の確認ができます。
+
+なお、Rails Console などを使って確認する場合は以下のように `docker compose run` で web コンテナに対して適宜実行してください。
+
+```sh
+docker compose run --rm web bin/rails c
+```
